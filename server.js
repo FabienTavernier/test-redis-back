@@ -16,6 +16,7 @@ const whitelist = ['http://localhost:5173', 'https://test-redis-front.vercel.app
 app.use(cors({
   origin: whitelist,
   credentials: true,
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
 }));
 
 app.use(express.json());
@@ -35,6 +36,7 @@ app.use(
       httpOnly: true,
       secure: process.env.NODE_ENV === 'production',
       sameSite: 'None',
+      maxAge: 3600000 * 24 * 7, // 1 semaine
     }
   })
 );
