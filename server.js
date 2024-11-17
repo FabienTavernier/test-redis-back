@@ -11,8 +11,10 @@ import { checkAuth } from './authMiddleware.js';
 const app = express();
 const PORT = 3000;
 
+const whitelist = ['http://localhost:5173', 'https://test-redis-front.vercel.app'];
+
 app.use(cors({
-  origin: 'http://localhost:5173',
+  origin: whitelist,
   credentials: true,
 }));
 
