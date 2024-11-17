@@ -42,6 +42,13 @@ app.use(
 );
 
 app.get('/', (req, res) => {
+  // TEST ENVOI COOKIE
+  res.cookie('testing_cookie', 'is_it_working', {
+    httpOnly: true,
+    secure: true,
+    sameSite: 'None',
+  });
+
   req.session.views = (req.session.views || 0) + 1;
   res.send(`Number of views: ${req.session.views}`);
 });
