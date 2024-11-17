@@ -23,12 +23,19 @@ app.use(express.json());
 const redisClient = createClient({ url: process.env.REDIS_URL });
 redisClient.connect().catch(console.error);
 
+console.log('PRODUCTION?', process.env.NODE_ENV === 'production');
+
 app.use(
   session({
     store: new RedisStore({ client: redisClient }),
     secret: 'your-secret-key',
     resave: false,
-    saveUninitialized: false
+    saveUninitialized: false,
+    cookie: {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === 'production',
+      sameSite: 'None',
+    }
   })
 );
 
